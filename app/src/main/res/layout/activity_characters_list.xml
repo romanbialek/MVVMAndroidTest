@@ -7,20 +7,25 @@
         <variable name="charactersListViewModel" type="com.romanbialek.mvvmtest.presentation.characterlist.CharactersListViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.characterlist.CharactersListActivity">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/characters_recycler_view"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:visibility="@{charactersListViewModel.isLoadFinished()?View.GONE:View.VISIBLE}"
+            android:id="@+id/albums_progress_bar"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
 
 </layout>
