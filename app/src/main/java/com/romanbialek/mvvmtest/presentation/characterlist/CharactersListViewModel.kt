@@ -31,7 +31,8 @@ class CharactersListViewModel @Inject constructor(private val getCharactersListU
                 charactersReceivedLiveData.value = it
             },
             onError = {
-                it.printStackTrace()
+                //409 conflict
+               // it.printStackTrace()
             }
         )
     }
