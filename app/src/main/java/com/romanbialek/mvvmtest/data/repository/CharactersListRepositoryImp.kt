@@ -15,6 +15,6 @@ class CharactersListRepositoryImp(
 ) : CharactersListRepository {
 
     override fun getCharacters(): Single<List<Character>> {
-        return retrofitService.getCharacters("","")
+        return retrofitService.getCharacters()
     }
 }

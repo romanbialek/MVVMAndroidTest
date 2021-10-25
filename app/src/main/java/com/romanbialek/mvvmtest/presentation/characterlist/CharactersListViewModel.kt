@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.romanbialek.mvvmtest.domain.usecase.GetCharactersUseCase
 import com.romanbialek.mvvmtest.domain.model.Character
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * A helper class for the UI controller that is responsible for
  * preparing data for [CharactersListActivity]
  *
  * */
-class CharactersListViewModel @ViewModelInject constructor(private val getCharactersListUseCase: GetCharactersUseCase) : ViewModel() {
+@HiltViewModel
+class CharactersListViewModel @Inject constructor(private val getCharactersListUseCase: GetCharactersUseCase) : ViewModel() {
 
     private val TAG = CharactersListViewModel::class.java.simpleName
     val isLoad = MutableLiveData<Boolean>()

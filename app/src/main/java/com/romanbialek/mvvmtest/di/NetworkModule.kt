@@ -10,8 +10,11 @@ import com.romanbialek.mvvmtest.data.repository.CharacterDetailRepositoryImp
 import com.romanbialek.mvvmtest.data.source.RetrofitService
 import com.romanbialek.mvvmtest.domain.repository.CharactersListRepository
 import com.romanbialek.mvvmtest.utils.Constants.BASE_URL
+import com.romanbialek.mvvmtest.utils.Constants.PUBLIC_KEY
+import com.romanbialek.mvvmtest.utils.Constants.PRIVATE_KEY
 import com.romanbialek.mvvmtest.domain.model.Character
 import com.google.gson.Gson
+import com.romanbialek.mvvmtest.domain.repository.CharacterDetailRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +28,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import okhttp3.HttpUrl
+import okhttp3.Request
+
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -61,25 +67,18 @@ class NetworkModule {
             .readTimeout(60, TimeUnit.SECONDS)
             .addNetworkInterceptor(interceptor)
             .addInterceptor { chain ->
-                var request = chain.request()
-                /* If there is Internet, get the cache that was stored 5 seconds ago.
-                 * If the cache is older than 5 seconds, then discard it,
-                 * and indicate an error in fetching the response.
-                 * The 'max-age' attribute is responsible for this behavior.
-                 */
-                request = if (true) request.newBuilder() //make default to true till i figure out how to inject network status
+                var original: Request = chain.request()
+                val originalHttpUrl: HttpUrl = original.url
+                val url = originalHttpUrl.newBuilder()
+                    .addQueryParameter("apikey", PUBLIC_KEY)
+                    .build()
+
+                // Request customization: add request headers
+
+                original = original.newBuilder().url(url)
                     .header("Cache-Control", "public, max-age=" + 5).build()
-                /*If there is no Internet, get the cache that was stored 7 days ago.
-                 * If the cache is older than 7 days, then discard it,
-                 * and indicate an error in fetching the response.
-                 * The 'max-stale' attribute is responsible for this behavior.
-                 * The 'only-if-cached' attribute indicates to not retrieve new data; fetch the cache only instead.
-                 */
-                else request.newBuilder().header(
-                    "Cache-Control",
-                    "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
-                ).build()
-                chain.proceed(request)
+
+                chain.proceed(original)
             }
         return client.build()
     }
@@ -126,6 +125,13 @@ class NetworkModule {
         return CharactersListRepositoryImp(retrofitService)
     }
 
+    @Singleton
+    @Provides
+    fun provideCharacterDetailRepository(
+        retrofitService: RetrofitService
+    ): CharacterDetailRepository {
+        return CharacterDetailRepositoryImp(retrofitService)
+    }
     //@Singleton
     //@Provides
     //fun provideCharacterRepository(

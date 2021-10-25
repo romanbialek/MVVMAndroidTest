@@ -9,9 +9,8 @@ import retrofit2.http.Path
 
 interface RetrofitService {
 
-    @GET("characters?{apikey}&{hash}")
-    fun getCharacters(
-        @Path("apikey") apikey: String ,@Path("hash") hash: String): Single<List<Character>>
+    @GET("characters")
+    fun getCharacters(): Single<List<Character>>
 
     @GET("character/{id}")
     fun getCharacterDetail(@Path("id") id: Long):Single<Character>
