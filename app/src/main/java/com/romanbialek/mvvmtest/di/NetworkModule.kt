@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.romanbialek.mvvmtest.data.repository.CharactersListRepositoryImp
+import com.romanbialek.mvvmtest.data.repository.CharacterDetailRepositoryImp
+
 import com.romanbialek.mvvmtest.data.source.RetrofitService
 import com.romanbialek.mvvmtest.domain.repository.CharactersListRepository
 import com.romanbialek.mvvmtest.utils.Constants.BASE_URL
