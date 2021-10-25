@@ -15,6 +15,7 @@ import com.romanbialek.mvvmtest.utils.Constants.PRIVATE_KEY
 import com.romanbialek.mvvmtest.domain.model.Character
 import com.google.gson.Gson
 import com.romanbialek.mvvmtest.domain.repository.CharacterDetailRepository
+import com.romanbialek.mvvmtest.utils.Utils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,6 +61,7 @@ class NetworkModule {
         val mCache = Cache(context.cacheDir, cacheSize)
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
+
         val client = OkHttpClient.Builder()
             .cache(mCache)
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -69,8 +71,13 @@ class NetworkModule {
             .addInterceptor { chain ->
                 var original: Request = chain.request()
                 val originalHttpUrl: HttpUrl = original.url
+                val timestamp: String = System.currentTimeMillis().toString()
+                val hash : String = Utils.generateAuthHash(PUBLIC_KEY, PRIVATE_KEY, timestamp)
+
                 val url = originalHttpUrl.newBuilder()
                     .addQueryParameter("apikey", PUBLIC_KEY)
+                    .addQueryParameter("hash", hash)
+                    .addQueryParameter("ts", timestamp)
                     .build()
 
                 // Request customization: add request headers
