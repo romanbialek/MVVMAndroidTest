@@ -21,7 +21,7 @@
 
         <ProgressBar
             android:visibility="@{charactersListViewModel.isLoadFinished()?View.GONE:View.VISIBLE}"
-            android:id="@+id/albums_progress_bar"
+            android:id="@+id/progress_bar"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

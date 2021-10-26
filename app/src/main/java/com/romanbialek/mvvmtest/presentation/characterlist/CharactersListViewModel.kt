@@ -28,7 +28,9 @@ class CharactersListViewModel @Inject constructor(private val getCharactersListU
         getCharactersListUseCase.execute(
             onSuccess = {
                 isLoadFinished.value = true
-                //charactersReceivedLiveData.value = it
+                if(it.data.characters != null) {
+                    charactersReceivedLiveData.value = it.data.characters!!
+                }
             },
             onError = {
                 //409 conflict

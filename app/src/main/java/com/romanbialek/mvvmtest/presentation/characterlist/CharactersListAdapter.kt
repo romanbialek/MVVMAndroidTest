@@ -7,6 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.romanbialek.mvvmtest.domain.model.Character
 import com.romanbialek.mvvmtest.R
+import com.romanbialek.mvvmtest.databinding.HolderCharacterListItemBinding
+import com.romanbialek.mvvmtest.presentation.loadImage
 import java.util.*
 
 /**
@@ -25,10 +27,10 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
      * is used to initialize ViewHolders
      * */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val holderAlbumBinding = DataBindingUtil.inflate<ViewDataBinding>(
-            LayoutInflater.from(parent.context), R.layout.activity_characters_list, parent, false
+        val charactersListBinding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context), R.layout.holder_character_list_item, parent, false
         )
-        return CharacterViewHolder(holderAlbumBinding)
+        return CharacterViewHolder(charactersListBinding)
     }
 
     /** It is called for each ViewHolder to bind it to the adapter &
@@ -57,11 +59,19 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
 
 
     inner class CharacterViewHolder(private val dataBinding: ViewDataBinding) : RecyclerView.ViewHolder(dataBinding.root) {
+
         fun onBind(character: Character) {
+            val characterItemBinding = dataBinding as HolderCharacterListItemBinding
+            val characterListItemViewModel = CharactersListItemViewModel(character)
+            characterItemBinding.charactersListItemViewModel = characterListItemViewModel
+            if(character.thumbnail != null) {
+                var url = character.thumbnail.path!! + "." + character.thumbnail.extension!!
+                characterItemBinding.thumbnailImage.loadImage(url)
+            }
+
             itemView.setOnClickListener {
                 mListener.showCharacter(character)
             }
-
         }
     }
 

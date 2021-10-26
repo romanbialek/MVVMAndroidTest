@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import com.romanbialek.mvvmtest.R
 import com.romanbialek.mvvmtest.databinding.ActivityCharactersListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +37,7 @@ class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListe
 
         viewModel.isLoadFinished.observe(this, Observer {
             it?.let { visibility ->
-                activityCharactersListBinding.albumsProgressBar.visibility = if (visibility) View.GONE else View.VISIBLE
+                activityCharactersListBinding.progressBar.visibility = if (visibility) View.GONE else View.VISIBLE
             }
         })
 
