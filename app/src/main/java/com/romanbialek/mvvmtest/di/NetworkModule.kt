@@ -5,16 +5,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.romanbialek.mvvmtest.data.repository.CharactersListRepositoryImp
-import com.romanbialek.mvvmtest.data.repository.CharacterDetailRepositoryImp
 
 import com.romanbialek.mvvmtest.data.source.RetrofitService
 import com.romanbialek.mvvmtest.domain.repository.CharactersListRepository
 import com.romanbialek.mvvmtest.utils.Constants.BASE_URL
 import com.romanbialek.mvvmtest.utils.Constants.PUBLIC_KEY
 import com.romanbialek.mvvmtest.utils.Constants.PRIVATE_KEY
-import com.romanbialek.mvvmtest.domain.model.Character
 import com.google.gson.Gson
-import com.romanbialek.mvvmtest.domain.repository.CharacterDetailRepository
 import com.romanbialek.mvvmtest.utils.Utils
 import dagger.Module
 import dagger.Provides
@@ -132,18 +129,5 @@ class NetworkModule {
         return CharactersListRepositoryImp(retrofitService)
     }
 
-    @Singleton
-    @Provides
-    fun provideCharacterDetailRepository(
-        retrofitService: RetrofitService
-    ): CharacterDetailRepository {
-        return CharacterDetailRepositoryImp(retrofitService)
-    }
-    //@Singleton
-    //@Provides
-    //fun provideCharacterRepository(
-    //    retrofitService: RetrofitService
-    //): CharacterRepository {
-    //    return CharacterRepositoryImp(retrofitService)
-    //}
+
 }
