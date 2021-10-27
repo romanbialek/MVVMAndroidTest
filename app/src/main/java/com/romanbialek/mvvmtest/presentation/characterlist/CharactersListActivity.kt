@@ -12,12 +12,14 @@ import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.romanbialek.mvvmtest.domain.model.Character
 import android.app.Activity
+import android.content.Intent
+import android.os.Build
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
-
-
-
-
+import com.romanbialek.mvvmtest.presentation.characterdetail.CharacterDetailActivity
+import com.google.gson.Gson
 
 @AndroidEntryPoint
 class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListener {
@@ -70,13 +72,22 @@ class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListe
 
     }
 
-
     override fun onDestroy(){
         super.onDestroy()
         adapter = null
     }
 
-    override fun showCharacter(character: Character) {
-        //TODO("Not yet implemented")
+    override fun showCharacter(view: View, character: Character) {
+        val intent = Intent(this@CharactersListActivity, CharacterDetailActivity::class.java)
+        val gson = Gson()
+        val myJson = gson.toJson(character)
+        intent.putExtra("character", myJson)
+
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            this,
+            view,
+            ViewCompat.getTransitionName(view) ?: ""
+        )
+        startActivity(intent, options.toBundle())
     }
 }

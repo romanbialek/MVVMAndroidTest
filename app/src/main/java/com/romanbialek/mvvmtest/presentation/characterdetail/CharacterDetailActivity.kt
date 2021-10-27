@@ -3,17 +3,13 @@ package com.romanbialek.mvvmtest.presentation.characterdetail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.romanbialek.mvvmtest.R
-import com.romanbialek.mvvmtest.presentation.characterlist.CharactersListViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.databinding.DataBindingUtil
-
+import com.romanbialek.mvvmtest.R
+import com.google.gson.Gson
 import com.romanbialek.mvvmtest.databinding.ActivityCharacterDetailBinding
-import javax.inject.Inject
+import com.romanbialek.mvvmtest.domain.model.Character
+import com.romanbialek.mvvmtest.presentation.loadImage
 
-@AndroidEntryPoint
 class CharacterDetailActivity : AppCompatActivity() {
 
     private lateinit var activityCharacterDetailBinding: ActivityCharacterDetailBinding
@@ -21,6 +17,16 @@ class CharacterDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_character_detail)
+
+        val gson = Gson()
+        val character = gson.fromJson(intent.getStringExtra("character"), Character::class.java)
+        activityCharacterDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_character_detail)
+
+        if(character.thumbnail != null) {
+            activityCharacterDetailBinding.imageView.loadImage(character.thumbnail!!.path + '.' + character.thumbnail.extension)
+        }
+        activityCharacterDetailBinding.detailName.text = character.name
+        activityCharacterDetailBinding.detailDescription.text = character.description
+
     }
 }

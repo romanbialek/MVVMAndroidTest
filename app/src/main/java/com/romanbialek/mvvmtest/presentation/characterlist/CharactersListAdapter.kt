@@ -69,7 +69,7 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
             }
 
             itemView.setOnClickListener {
-                mListener.showCharacter(character)
+                mListener.showCharacter(characterItemBinding.thumbnailImage, character)
             }
         }
     }

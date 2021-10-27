@@ -7,25 +7,42 @@
         <variable name="charactersListViewModel" type="com.romanbialek.mvvmtest.presentation.characterlist.CharactersListViewModel"/>
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="1"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/characters_recycler_view"/>
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/design_default_color_on_primary"
+                android:text="@string/superheroes"/>
+        </androidx.appcompat.widget.Toolbar>
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/characters_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1" />
 
         <ProgressBar
             android:visibility="@{charactersListViewModel.isLoadFinished()?View.GONE:View.VISIBLE}"
             android:id="@+id/progress_bar"
             android:layout_gravity="center"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 
 </layout>
