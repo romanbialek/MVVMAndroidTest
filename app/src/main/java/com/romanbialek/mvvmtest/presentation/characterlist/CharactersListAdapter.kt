@@ -51,9 +51,8 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
         return characters.size
     }
 
-    fun addData(list: List<Character>) {
-        this.characters.clear()
-        this.characters.addAll(list)
+    fun addData(index: Int, list: List<Character>) {
+        this.characters.addAll(index, list)
         notifyDataSetChanged()
     }
 

@@ -19,12 +19,14 @@ class CharactersListViewModel @Inject constructor(private val getCharactersListU
     private val TAG = CharactersListViewModel::class.java.simpleName
     val isLoadFinished = MutableLiveData<Boolean>()
     val charactersReceivedLiveData = MutableLiveData<List<Character>>()
+    val errorLiveData = MutableLiveData<Throwable>()
 
     init {
         isLoadFinished.value = false
     }
 
-    fun getCharacters() {
+    fun getCharacters(offset: Int) {
+        getCharactersListUseCase.setOffset(offset)
         getCharactersListUseCase.execute(
             onSuccess = {
                 isLoadFinished.value = true
@@ -33,8 +35,8 @@ class CharactersListViewModel @Inject constructor(private val getCharactersListU
                 }
             },
             onError = {
-                //409 conflict
                 it.printStackTrace()
+                errorLiveData.value = it
             }
         )
     }

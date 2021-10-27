@@ -9,7 +9,15 @@ import com.romanbialek.mvvmtest.R
 import com.romanbialek.mvvmtest.databinding.ActivityCharactersListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.romanbialek.mvvmtest.domain.model.Character
+import android.app.Activity
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+
+
+
+
 
 @AndroidEntryPoint
 class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListener {
@@ -17,22 +25,41 @@ class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListe
     private lateinit var activityCharactersListBinding: ActivityCharactersListBinding
     private val viewModel: CharactersListViewModel by viewModels()
     private var adapter: CharactersListAdapter? = null
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         adapter = CharactersListAdapter(this)
-
         activityCharactersListBinding = DataBindingUtil.setContentView(this, R.layout.activity_characters_list)
         activityCharactersListBinding.charactersListViewModel = viewModel
-        activityCharactersListBinding.charactersRecyclerView.adapter = adapter
+        recyclerView = activityCharactersListBinding.charactersRecyclerView
+        recyclerView.adapter = adapter
+        val layoutManager = LinearLayoutManager(this@CharactersListActivity)
+        recyclerView.layoutManager = layoutManager
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val visibleItemCount = layoutManager.childCount
+                val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+                val total = recyclerView.adapter!!.itemCount
+                    if ((visibleItemCount + pastVisibleItem) == total) {
+                        viewModel.isLoadFinished.value = false
+                        viewModel.getCharacters(recyclerView.adapter!!.itemCount)
+                    }
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        viewModel.getCharacters(0)
 
-
-        viewModel.getCharacters()
         viewModel.charactersReceivedLiveData.observe(this, Observer {
-            initRecyclerView(it)
+            adapter?.addData(adapter!!.itemCount, it)
+        })
+
+        viewModel.errorLiveData.observe(this,{
+            Snackbar.make(View(this@CharactersListActivity), R.string.error_message, Snackbar.LENGTH_LONG).show()
         })
 
         viewModel.isLoadFinished.observe(this, Observer {
@@ -43,16 +70,13 @@ class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListe
 
     }
 
-    private fun initRecyclerView(characters: List<Character>) {
-        adapter?.addData(characters)
-    }
 
     override fun onDestroy(){
         super.onDestroy()
         adapter = null
     }
 
-    override fun showCharacter(character: com.romanbialek.mvvmtest.domain.model.Character) {
-        TODO("Not yet implemented")
+    override fun showCharacter(character: Character) {
+        //TODO("Not yet implemented")
     }
 }
