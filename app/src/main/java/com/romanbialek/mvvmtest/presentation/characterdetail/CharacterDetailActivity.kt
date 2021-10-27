@@ -1,7 +1,9 @@
 package com.romanbialek.mvvmtest.presentation.characterdetail
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.romanbialek.mvvmtest.R
@@ -27,6 +29,13 @@ class CharacterDetailActivity : AppCompatActivity() {
         }
         activityCharacterDetailBinding.detailName.text = character.name
         activityCharacterDetailBinding.detailDescription.text = character.description
+        if (character.description.isNullOrEmpty())
+            activityCharacterDetailBinding.detailDescription.visibility = View.GONE
+        activityCharacterDetailBinding.detailComics.text = getString(R.string.comics) + "  " + character.comicsResponse.available.toString()
+        activityCharacterDetailBinding.detailEvents.text = getString(R.string.events) + "  " + character.eventsResponse.available.toString()
+        activityCharacterDetailBinding.detailSeries.text = getString(R.string.series) + "  " + character.seriesResponse.available.toString()
+        activityCharacterDetailBinding.detailStories.text = getString(R.string.stories) + "  " +  character.storiesResponse.available.toString()
+
 
     }
 }

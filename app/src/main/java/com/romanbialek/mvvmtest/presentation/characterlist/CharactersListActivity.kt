@@ -61,7 +61,8 @@ class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListe
         })
 
         viewModel.errorLiveData.observe(this,{
-            Snackbar.make(View(this@CharactersListActivity), R.string.error_message, Snackbar.LENGTH_LONG).show()
+            viewModel.isLoadFinished.value = true
+            Snackbar.make(activityCharactersListBinding.charactersRecyclerView, R.string.error_message, Snackbar.LENGTH_LONG).show()
         })
 
         viewModel.isLoadFinished.observe(this, Observer {

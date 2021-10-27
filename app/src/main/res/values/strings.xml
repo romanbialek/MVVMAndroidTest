@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">MVVMTest</string>
     <string name="superheroes">Superheroes App!</string>
+    <string name="comics">Comics:</string>
+    <string name="series">Series:</string>
+    <string name="events">Events:</string>
+    <string name="stories">Stories:</string>
+
     <string name="error_message">Ha ocurrido un error</string>
 </resources>

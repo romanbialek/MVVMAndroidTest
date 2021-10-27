@@ -48,12 +48,65 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="10dp"
-
+                    android:textAlignment="center"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="10dp"
                     android:text=""
                     android:textSize="16sp"
                     tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget neque faucibus augue volutpat viverra. Sed lacinia pharetra scelerisque. Sed scelerisque bibendum erat laoreet sodales. Vestibulum tristique massa at congue tincidunt. Aenean vel dolor ac erat facilisis condimentum vitae ac tellus. Aenean facilisis mi nisi, quis aliquam dui imperdiet vitae. Sed rutrum dictum sapien, a pellentesque justo congue ac." />
+
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:id="@+id/detail_comics"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/comics"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detail_series"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:id="@+id/detail_stories"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/comics"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detail_events"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="textEnd"
+                        android:text="0"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
