@@ -11,9 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.romanbialek.mvvmtest.domain.model.Character
-import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView

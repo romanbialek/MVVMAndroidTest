@@ -8,11 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
-/**
- * A helper class for the UI controller that is responsible for
- * preparing data for [CharactersListActivity]
- *
- * */
 @HiltViewModel
 class CharactersListViewModel @Inject constructor(private val getCharactersListUseCase: GetCharactersUseCase) : ViewModel() {
 

@@ -11,10 +11,7 @@ import com.romanbialek.mvvmtest.databinding.HolderCharacterListItemBinding
 import com.romanbialek.mvvmtest.presentation.loadImage
 import java.util.*
 
-/**
- * This class is responsible for converting each data entry [Characters]
- * into [CharacteViewHolder] that can then be added to the AdapterView.
- */
+
 internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -22,10 +19,6 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
     private val characters: MutableList<Character> = ArrayList()
 
 
-    /**
-     * This method is called right when adapter is created &
-     * is used to initialize ViewHolders
-     * */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val charactersListBinding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context), R.layout.holder_character_list_item, parent, false
@@ -33,9 +26,6 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
         return CharacterViewHolder(charactersListBinding)
     }
 
-    /** It is called for each ViewHolder to bind it to the adapter &
-     * This is where we pass data to ViewHolder
-     * */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as CharacterViewHolder).onBind(getItem(position))
     }
@@ -44,9 +34,6 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
         return characters[position]
     }
 
-    /**
-     * This method returns the size of collection that contains the items we want to display
-     * */
     override fun getItemCount(): Int {
         return characters.size
     }

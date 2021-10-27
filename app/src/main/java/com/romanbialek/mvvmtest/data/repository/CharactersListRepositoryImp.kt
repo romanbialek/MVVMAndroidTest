@@ -9,10 +9,6 @@ import io.reactivex.Single
 import retrofit2.http.Query
 
 
-/**
- * This repository is responsible for
- * fetching data[CharactersList] from server
- * */
 class CharactersListRepositoryImp(
     private val retrofitService: RetrofitService
 ) : CharactersListRepository {

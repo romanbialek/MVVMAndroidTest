@@ -1,6 +1,5 @@
 package com.romanbialek.mvvmtest.presentation.characterdetail
 
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -35,7 +34,6 @@ class CharacterDetailActivity : AppCompatActivity() {
         activityCharacterDetailBinding.detailEvents.text = getString(R.string.events) + "  " + character.eventsResponse.available.toString()
         activityCharacterDetailBinding.detailSeries.text = getString(R.string.series) + "  " + character.seriesResponse.available.toString()
         activityCharacterDetailBinding.detailStories.text = getString(R.string.stories) + "  " +  character.storiesResponse.available.toString()
-
 
     }
 }

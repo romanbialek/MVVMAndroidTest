@@ -2,8 +2,6 @@ package com.romanbialek.mvvmtest.utils
 
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.security.Timestamp
-
 
 object Utils {
 
