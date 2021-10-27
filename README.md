@@ -1,3 +1,3 @@
 # MVVMAndroidTest
 
-![Alt text](howworks.gif) 
+<img src="/howworks.gif" height="380" />
