@@ -89,4 +89,8 @@ class CharactersListActivity : AppCompatActivity(), OnCharactersListAdapterListe
         )
         startActivity(intent, options.toBundle())
     }
+
+    fun getRecycleView(): RecyclerView{
+        return this.recyclerView
+    }
 }

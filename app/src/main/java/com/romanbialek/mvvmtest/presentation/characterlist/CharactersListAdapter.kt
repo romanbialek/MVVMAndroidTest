@@ -30,7 +30,7 @@ internal class CharactersListAdapter(val mListener: OnCharactersListAdapterListe
         (holder as CharacterViewHolder).onBind(getItem(position))
     }
 
-    private fun getItem(position: Int): Character {
+    fun getItem(position: Int): Character {
         return characters[position]
     }
 
