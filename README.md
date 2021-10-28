@@ -13,4 +13,4 @@ Endpoints */characters* and *characters/{characterId}* return exactly the same m
 - RxJava
 - Hilt
 - Picasso
-- Expresso
+- Espresso
